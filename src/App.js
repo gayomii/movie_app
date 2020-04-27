@@ -7,24 +7,35 @@ class App extends React.Component{
     isLoading : true,
     movies : []
   };
-  getMovies= async () => {
+
+  getMovies = async () => {
     const {data: {data: {movies}}} = await axios.get("https://yts.mx/api/v2/list_movies.json?sort_by=rating");
-    this.setState({movies, isLoading: false});
+    this.setState({movies, isLoading: false}); //movies 받아옴
   }
   componentDidMount(){
     this.getMovies();
-
   };
   
   render(){
     const {isLoading, movies} = this.state;
     return (
-      <div>
-        <h1>{isLoading ? "Loading..." : movies.map(movie => {
-          console.log(movie);
-          return <Movies id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} pster={movie.medium_cover_image} />
-        })}</h1>
-      </div>
+      <section class="container">
+        {isLoading ? (<div class="loader">
+          <span class="loader__text">Loading...</span>
+        </div>
+        ) : (
+        <div class="movies">
+          {movies.map(movies => (
+            <Movies 
+              id={movies.id} 
+              year={movies.year} 
+              title={movies.title} 
+              summary={movies.summary} 
+              poster={movies.medium_cover_image} 
+            />))}  
+          </div>
+        )}
+      </section>
     );
   }
 }
