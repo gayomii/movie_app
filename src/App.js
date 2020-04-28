@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Movies from './Movies';
+import "./App.css";
 
 class App extends React.Component{
   state = {
@@ -27,13 +28,15 @@ class App extends React.Component{
         <div class="movies">
           {movies.map(movies => (
             <Movies 
+              key={movies.id}
               id={movies.id} 
               year={movies.year} 
               title={movies.title} 
               summary={movies.summary} 
               poster={movies.medium_cover_image} 
-            />))}  
-          </div>
+            />
+          ))}  
+        </div>
         )}
       </section>
     );
